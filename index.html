@@ -39,13 +39,35 @@
   .lockup .partner{font-family:'Barlow Condensed';font-size:14.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);border-left:1px solid var(--line);padding-left:18px}
   .prepared{font-family:'Barlow Condensed';font-size:14.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);font-weight:600}
 
-  /* ---------- hero ---------- */
-  .hero{padding:clamp(64px,10vw,130px) 0 clamp(56px,8vw,110px)}
-  .hero h1{font-size:clamp(2.5rem,6.6vw,4.6rem);line-height:1.06;max-width:16ch}
-  .hero h1 em{font-style:normal;color:var(--red)}
-  .hero .lead{margin-top:clamp(24px,3.5vw,36px);font-size:clamp(1.12rem,2.1vw,1.35rem);line-height:1.55;color:var(--body-c);max-width:52ch}
-  .hero .addressee{margin-bottom:22px;font-family:'Barlow Condensed';font-size:16px;letter-spacing:.16em;text-transform:uppercase;color:var(--slate);font-weight:500}
-  .hero .addressee::after{content:"";display:block;width:64px;height:3px;background:var(--red);margin-top:14px}
+  /* ---------- hero: scroll scrubbed film ---------- */
+  .hero-scrub{height:280vh}
+  .hero-pin{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;background:#0a0d10}
+  .hero-media,.hero-canvas{position:absolute;inset:0;width:100%;height:100%}
+  .hero-media{background:url(assets/img/hero-poster.jpg) center/cover no-repeat}
+  .hero-canvas{display:none}
+  .js .hero-canvas.ready{display:block}
+  .hero-scrim{position:absolute;inset:0;background:linear-gradient(160deg,rgba(6,9,12,.85) 0%,rgba(6,9,12,.55) 45%,rgba(6,9,12,.32) 70%,rgba(6,9,12,.75) 100%)}
+  .hero-content{position:relative;z-index:1}
+  .hero-content h1{font-size:clamp(2.5rem,6.6vw,4.6rem);line-height:1.06;max-width:16ch;color:#fff}
+  .hero-content h1 em{font-style:normal;color:#e05252}
+  .hero-content .lead{margin-top:clamp(24px,3.5vw,36px);font-size:clamp(1.12rem,2.1vw,1.35rem);line-height:1.55;color:#e9e6e0;max-width:52ch}
+  .hero-content .addressee{margin-bottom:22px;font-family:'Barlow Condensed';font-size:16px;letter-spacing:.16em;text-transform:uppercase;color:#cdd5db;font-weight:500}
+  .hero-content .addressee::after{content:"";display:block;width:64px;height:3px;background:#e05252;margin-top:14px}
+  .hero-hint{position:absolute;bottom:26px;left:50%;z-index:1;width:1px;height:44px;background:linear-gradient(rgba(255,255,255,0),rgba(255,255,255,.75));transform:translateX(-50%);animation:hintDrop 2.4s var(--ease) infinite}
+  @keyframes hintDrop{0%{transform:translateX(-50%) scaleY(0);transform-origin:top;opacity:1}55%{transform:translateX(-50%) scaleY(1);opacity:1}100%{transform:translateX(-50%) scaleY(1);opacity:0}}
+  @media (max-width:820px),(pointer:coarse){
+    .hero-scrub{height:auto}
+    .hero-pin{position:relative;height:auto;min-height:86vh;padding:clamp(80px,16vw,130px) 0}
+    .hero-media{background-image:url(assets/img/hero-poster-mobile.jpg);animation:kenburns 26s ease-in-out infinite alternate}
+    .hero-canvas{display:none!important}
+    .hero-hint{display:none}
+  }
+  @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.08)}}
+
+  /* full bleed image bands */
+  .band{margin:0;position:relative}
+  .band img{width:100%;display:block;max-height:62vh;object-fit:cover}
+  .band figcaption{position:absolute;left:0;right:0;bottom:0;padding:44px clamp(20px,5vw,48px) 18px;background:linear-gradient(transparent,rgba(8,10,12,.78));color:#fff;font-family:'Barlow Condensed';font-size:15px;letter-spacing:.12em;text-transform:uppercase}
 
   /* act break kicker: red rule + caps, three uses total */
   .act{padding-top:clamp(48px,7vw,90px)}
@@ -103,11 +125,23 @@
   .results .pct{font-family:'Oswald',sans-serif;font-weight:600;font-size:1.4rem;color:var(--red);white-space:nowrap}
   .results .pct small{font-family:'Barlow',sans-serif;font-weight:400;font-size:.58em;color:var(--mut);letter-spacing:0}
 
-  /* statement band */
-  .statement{padding:clamp(56px,9vw,100px) 0;background:var(--bg-alt);text-align:center}
-  .statement h2{font-size:clamp(1.9rem,4.4vw,3rem);line-height:1.15;max-width:24ch;margin:0 auto}
-  .statement h2 em{font-style:normal;color:var(--red)}
-  .statement p{margin:clamp(18px,3vw,26px) auto 0;max-width:56ch;color:var(--body-c)}
+  /* statement band: the cattle moment */
+  .statement{position:relative;padding:clamp(84px,14vw,160px) 0;text-align:center;overflow:hidden}
+  .statement .bg{position:absolute;inset:0;background:url(assets/img/cattle.jpg) center 35%/cover no-repeat}
+  @media (min-width:1000px) and (pointer:fine){.statement .bg{background-attachment:fixed}}
+  .statement .scrim{position:absolute;inset:0;background:rgba(12,9,9,.5)}
+  .statement .wrap{position:relative;z-index:1}
+  .statement h2{font-size:clamp(1.9rem,4.4vw,3rem);line-height:1.15;max-width:24ch;margin:0 auto;color:#fff;text-shadow:0 2px 22px rgba(0,0,0,.45)}
+  .statement h2 em{font-style:normal;color:#ea5c50}
+  .statement p{margin:clamp(18px,3vw,26px) auto 0;max-width:56ch;color:rgba(255,255,255,.92);text-shadow:0 1px 14px rgba(0,0,0,.5)}
+
+  /* drawn moments */
+  .js .diagram svg path{stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 1.6s var(--ease) .25s}
+  .js .diagram.in svg path{stroke-dashoffset:0}
+  .js .act-label .rule{transform:scaleX(0);transform-origin:left;transition:transform .9s var(--ease) .15s}
+  .js .act-label.in .rule{transform:scaleX(1)}
+  .lever{transition:background .3s var(--ease)}
+  .lever:hover{background:rgba(190,30,45,.035)}
 
   /* plan */
   .steps{margin-top:clamp(28px,4vw,42px);display:flex;flex-direction:column}
@@ -182,6 +216,11 @@
   @media (prefers-reduced-motion:reduce){
     .js .rv{opacity:1;transform:none;transition:none}
     .ledger__col{animation:none}
+    .hero-media{animation:none}
+    .hero-hint{display:none}
+    .statement .bg{background-attachment:scroll}
+    .js .diagram svg path{stroke-dashoffset:0;transition:none}
+    .js .act-label .rule{transform:none;transition:none}
   }
 </style>
 </head>
@@ -199,15 +238,23 @@
 </header>
 
 <!-- ACT I : THE INSIGHT -->
-<div class="hero">
-  <div class="wrap">
-    <p class="addressee rv">Saltgrass Steak House · A Texas Energy Pilot · August 2026</p>
-    <h1 class="rv">Your best nights are your <em>most expensive</em> nights.</h1>
-    <p class="lead rv">A packed dining room loads every system in the building at once. Most of that cost is controllable. This page shows where it hides and how we remove it.</p>
+<div class="hero-scrub" id="heroScrub">
+  <div class="hero-pin">
+    <div class="hero-media" aria-hidden="true"></div>
+    <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
+    <div class="hero-scrim" aria-hidden="true"></div>
+    <div class="wrap hero-content">
+      <p class="addressee rv">Saltgrass Steak House · A Texas Energy Pilot · August 2026</p>
+      <h1 class="rv">Your best nights are your <em>most expensive</em> nights.</h1>
+      <p class="lead rv">A packed dining room loads every system in the building at once. Most of that cost is controllable. This page shows where it hides and how we remove it.</p>
+    </div>
+    <div class="hero-hint" aria-hidden="true"></div>
   </div>
 </div>
 
 <div class="statement">
+  <div class="bg" aria-hidden="true"></div>
+  <div class="scrim" aria-hidden="true"></div>
   <div class="wrap">
     <h2 class="rv">You cannot control the price of cattle. You can control the price of <em>comfort</em>.</h2>
     <p class="rv">Cut food quality and the guest tastes it. Cut labor and the guest feels it. Energy is one of the only line items in a steakhouse that can fall sharply without a single guest noticing, because the fix makes the dining room more comfortable, not less.</p>
@@ -231,6 +278,11 @@
     </div>
   </div>
 </section>
+
+<figure class="band">
+  <img src="assets/img/steak.jpg" alt="A prime ribeye searing on a steakhouse grill, steam rising into the dark kitchen." loading="lazy">
+  <figcaption>The kitchen pumps steam. The whole building pays to fight it.</figcaption>
+</figure>
 
 <!-- ACT II : THE VILLAIN -->
 <section class="alt act">
@@ -283,6 +335,11 @@
     <p class="figure-note rv">The three costs compound in that order: inefficiency raises the peaks, the peaks and the humidity grind down the equipment, and the equipment bill lands in capital budgets years before it should.</p>
   </div>
 </section>
+
+<figure class="band">
+  <img src="assets/img/hvac-dusk.jpg" alt="A row of weathered rooftop air conditioning units on a flat commercial roof." loading="lazy">
+  <figcaption>Aging rooftop units are recoverable, not just replaceable.</figcaption>
+</figure>
 
 <!-- ACT III : THE FIX -->
 <section class="act">
@@ -549,6 +606,43 @@
       openBtn.addEventListener('click',()=>{render();sheet.showModal();});
       if(closeBtn)closeBtn.addEventListener('click',()=>sheet.close());
       sheet.addEventListener('click',e=>{if(e.target===sheet)sheet.close();});
+    }
+  })();
+
+  /* hero: scroll scrubbed film frames */
+  (function(){
+    const HERO_FRAME_COUNT=80;
+    const canvas=document.getElementById('heroCanvas');
+    const wrapper=document.getElementById('heroScrub');
+    if(!canvas||!wrapper||!HERO_FRAME_COUNT)return;
+    if(matchMedia('(max-width:820px),(pointer:coarse)').matches)return;
+    if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+    const ctx=canvas.getContext('2d');
+    const src=i=>'assets/frames/f'+String(i+1).padStart(3,'0')+'.webp';
+    const imgs=new Array(HERO_FRAME_COUNT);let current=0,ready=false;
+    const draw=i=>{
+      const im=imgs[i];if(!im||!im.complete||!im.naturalWidth)return;
+      const cw=canvas.width,ch=canvas.height,iw=im.naturalWidth,ih=im.naturalHeight;
+      const s=Math.max(cw/iw,ch/ih),w=iw*s,h=ih*s;
+      ctx.drawImage(im,(cw-w)/2,(ch-h)/2,w,h);
+    };
+    const resize=()=>{canvas.width=canvas.clientWidth;canvas.height=canvas.clientHeight;draw(current)};
+    const update=()=>{
+      const rect=wrapper.getBoundingClientRect();
+      const total=rect.height-innerHeight;
+      if(total<=0)return;
+      const p=Math.min(1,Math.max(0,-rect.top/total));
+      const idx=Math.min(HERO_FRAME_COUNT-1,Math.round(p*(HERO_FRAME_COUNT-1)));
+      if(idx!==current){current=idx;requestAnimationFrame(()=>draw(current));}
+    };
+    addEventListener('resize',resize,{passive:true});
+    addEventListener('scroll',update,{passive:true});
+    for(let i=0;i<HERO_FRAME_COUNT;i++){
+      const im=new Image();
+      im.decoding='async';
+      im.src=src(i);
+      if(i===0)im.onload=()=>{if(!ready){ready=true;canvas.classList.add('ready');resize();draw(0);}};
+      imgs[i]=im;
     }
   })();
 </script>
