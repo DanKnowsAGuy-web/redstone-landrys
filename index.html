@@ -106,6 +106,19 @@
   .triple h3{font-size:1.15rem;margin:14px 0 10px;letter-spacing:.03em}
   .triple p{font-size:1.05rem;line-height:1.6;color:var(--body-c)}
   .triple .kicker-line{margin-top:14px;font-size:.98rem;color:var(--red);font-weight:500}
+  .cell-viz{margin:14px 0 2px}
+  .cell-viz svg{width:100%;max-width:210px;height:auto;display:block}
+  .viz-meter .m-needle{transform-origin:60px 56px;transform:rotate(52deg);transition:transform 1.9s cubic-bezier(.22,1,.36,1) .4s}
+  .triple > div.in .viz-meter .m-needle{transform:rotate(-52deg)}
+  .viz-bars rect{fill:rgba(84,86,91,.4)}
+  .viz-bars .b-peak{fill:#be1e2d;transform-box:fill-box;transform-origin:bottom;transition:transform 1.3s cubic-bezier(.22,1,.36,1) .5s}
+  .triple > div.in .viz-bars .b-peak{transform:scaleY(.5)}
+  .viz-bars .b-ghost{fill:none;stroke:#be1e2d;stroke-width:1.5;stroke-dasharray:3 3;opacity:0;transition:opacity .7s ease 1.6s}
+  .triple > div.in .viz-bars .b-ghost{opacity:.7}
+  .viz-life .l-ext{transform-box:fill-box;transform-origin:left;transform:scaleX(0);transition:transform 1.4s cubic-bezier(.22,1,.36,1) .5s}
+  .triple > div.in .viz-life .l-ext{transform:scaleX(1)}
+  .viz-life .l-txt{opacity:0;transition:opacity .7s ease 1.7s}
+  .triple > div.in .viz-life .l-txt{opacity:1}
   .cell-cause,.cell-back{margin-top:12px;font-size:1.02rem;line-height:1.55;color:var(--body-c)}
   .cell-cause strong,.cell-back strong{display:block;font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.08em;font-size:14px;font-weight:600;color:var(--slate);margin-bottom:2px}
   .cell-back strong{color:var(--red)}
@@ -276,6 +289,11 @@
   .js .rv{opacity:0;transform:translateY(16px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
   .js .rv.in{opacity:1;transform:none}
   @media (prefers-reduced-motion:reduce){
+    .viz-meter .m-needle{transform:rotate(-52deg);transition:none}
+    .viz-bars .b-peak{transform:scaleY(.5);transition:none}
+    .viz-bars .b-ghost{opacity:.7;transition:none}
+    .viz-life .l-ext{transform:scaleX(1);transition:none}
+    .viz-life .l-txt{opacity:1;transition:none}
     .js .rv{opacity:1;transform:none;transition:none}
     .ledger__col{animation:none}
     .hero-media{animation:none}
@@ -378,6 +396,12 @@
       <div class="rv">
         <span class="chip">1</span>
         <h3>The meter</h3>
+        <div class="cell-viz" aria-hidden="true"><svg class="viz-meter" viewBox="0 0 120 64">
+          <path d="M20 56 A40 40 0 0 1 100 56" fill="none" stroke="#e3e4e6" stroke-width="6"/>
+          <path d="M60 16 A40 40 0 0 1 100 56" fill="none" stroke="rgba(190,30,45,.4)" stroke-width="6"/>
+          <line class="m-needle" x1="60" y1="56" x2="60" y2="21" stroke="#1f2226" stroke-width="3"/>
+          <circle cx="60" cy="56" r="4.5" fill="#be1e2d"/>
+        </svg></div>
         <p>Cooling and refrigeration are the largest controllable block of a full service restaurant's electric bill. When those systems run inefficiently, every hour of a busy Friday costs more than it should.</p>
         <p class="cell-cause"><strong>The cause</strong> Unassisted equipment: compressors carry the whole load alone, with no intelligence and no assist.</p>
         <p class="cell-back"><strong>Paid back</strong> 20 to 55 percent of the HVAC and cooling portion of the bill.</p>
@@ -385,14 +409,27 @@
       <div class="rv">
         <span class="chip">2</span>
         <h3>The demand charge</h3>
-        <p>Delivery charges are set by regulators, not by your supplier, and they are climbing: ERCOT's own forecasts show Texas peak demand growing from about 85 gigawatts toward 139 by 2030 as data centers pour in, and that grid buildout lands on every delivery bill. No broker can negotiate it away.</p>
+        <div class="cell-viz" aria-hidden="true"><svg class="viz-bars" viewBox="0 0 120 64">
+          <rect class="b-ghost" x="58" y="12" width="9" height="46"/>
+          <rect x="10" y="42" width="9" height="16"/><rect x="22" y="36" width="9" height="22"/>
+          <rect x="34" y="39" width="9" height="19"/><rect x="46" y="32" width="9" height="26"/>
+          <rect class="b-peak" x="58" y="12" width="9" height="46"/>
+          <rect x="70" y="33" width="9" height="25"/><rect x="82" y="37" width="9" height="21"/>
+          <rect x="94" y="34" width="9" height="24"/><rect x="106" y="41" width="9" height="17"/>
+        </svg></div>
+        <p>Delivery charges are set by regulators, not by your supplier, and they climb as Texas builds out its grid for record demand. No broker can negotiate them away.</p>
         <p class="cell-cause"><strong>The cause</strong> Peak timing: the same kilowatt costs multiples during the summer peaks.</p>
         <p class="cell-back"><strong>Paid back</strong> Flattened peaks, timed to the intervals that set delivery charges for the year.</p>
       </div>
       <div class="rv">
         <span class="chip">3</span>
         <h3>Equipment life</h3>
-        <p>A unit that runs hot, wet, and hard dies years early. And the 2025 refrigerant transition pushed manufacturer prices on new equipment up roughly 10 percent on top of years of inflation, so every early replacement costs more than the last one did.</p>
+        <div class="cell-viz" aria-hidden="true"><svg class="viz-life" viewBox="0 0 120 64">
+          <rect x="8" y="28" width="60" height="10" fill="rgba(84,86,91,.4)"/>
+          <rect class="l-ext" x="68" y="28" width="42" height="10" fill="#be1e2d"/>
+          <text class="l-txt" x="8" y="57" font-family="Barlow Condensed, sans-serif" font-size="13" letter-spacing="1" fill="#54565b">+5 TO 15 YEARS</text>
+        </svg></div>
+        <p>A unit that runs hot, wet, and hard dies years early. The refrigerant transition pushed new equipment prices up roughly 10 percent, so every early replacement costs more than the last.</p>
         <p class="cell-cause"><strong>The causes</strong> Heat, humidity, and dirty power, grinding the machines down.</p>
         <p class="cell-back"><strong>Paid back</strong> 5 to 15 added years of equipment life and up to 40 percent less maintenance.</p>
       </div>
@@ -562,7 +599,7 @@
 
 <footer>
   <div class="wrap">
-    <p class="fine">Technology results shown are results achieved by the technologies we deploy at the sites named or documented in the studies cited, under their own conditions; they are not predictions for any specific restaurant. Regional programs aggregate hundreds of additional sites into the 200 plus total. Savings figures are stated as a share of the HVAC and cooling portion of a facility bill, not the whole bill, and every projection is planned at the floor of the proven range. Equipment life and maintenance statements, including added years of service life and maintenance reductions of up to 40 percent, reflect results documented for the technologies we deploy, assume proper installation and operation, and are not a warranty. Utility incentives are quoted from current program manuals during site scoping. Grid forecast figures are from ERCOT's published long term load forecast. The margin equivalence is an illustration based on the National Restaurant Association's 2025 Restaurant Operations Data Abstract, which reports median full service income before taxes of 2.8 percent of sales, and assumes a typical casual steakhouse average check; it is not a projection for any specific restaurant. Federal tax provisions referenced are as of August 2026; confirm with tax counsel.</p>
+    <p class="fine">Technology results shown are results achieved by the technologies we deploy at the sites named or documented in the studies cited, under their own conditions; they are not predictions for any specific restaurant. Regional programs aggregate hundreds of additional sites into the 200 plus total. Savings figures are stated as a share of the HVAC and cooling portion of a facility bill, not the whole bill, and every projection is planned at the floor of the proven range. Equipment life and maintenance statements, including added years of service life and maintenance reductions of up to 40 percent, reflect results documented for the technologies we deploy, assume proper installation and operation, and are not a warranty. Utility incentives are quoted from current program manuals during site scoping. The margin equivalence is an illustration based on the National Restaurant Association's 2025 Restaurant Operations Data Abstract, which reports median full service income before taxes of 2.8 percent of sales, and assumes a typical casual steakhouse average check; it is not a projection for any specific restaurant. Federal tax provisions referenced are as of August 2026; confirm with tax counsel.</p>
     <p class="fine">Prepared by Redstone Energy in partnership with Energy Plus. Private and confidential, prepared for Landry's.</p>
   </div>
 </footer>
