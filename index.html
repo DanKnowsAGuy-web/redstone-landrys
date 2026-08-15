@@ -155,6 +155,9 @@
   .eq-dial input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;background:var(--red);border:2px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.35);margin-top:-6px}
   .eq-dial input[type=range]::-moz-range-track{height:12px;background:linear-gradient(to right,rgba(190,30,45,.38) 0 22.2%,#e9eaec 22.2% 44.4%,rgba(84,86,91,.38) 44.4% 100%);border:1px solid var(--line)}
   .eq-dial input[type=range]::-moz-range-thumb{width:22px;height:22px;background:var(--red);border:2px solid #fff;border-radius:0;box-shadow:0 1px 5px rgba(0,0,0,.35)}
+  .eq-controls{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,3vw,36px);align-items:start}
+  @media (max-width:760px){.eq-controls{grid-template-columns:1fr;gap:16px}}
+  .eq-ends--plain span::before{display:none}
   .eq-ends{display:flex;justify-content:space-between;max-width:560px;margin-top:6px;font-family:'Barlow Condensed';font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--body-c)}
   .eq-ends span{display:flex;align-items:center;gap:7px}
   .eq-ends span::before{content:"";width:11px;height:11px;border:1px solid var(--line);flex:0 0 11px}
@@ -340,15 +343,27 @@
 
     <div class="equation rv">
       <div class="eq-dial">
-        <label for="eqMargin">Your profit margin: <strong id="eqMarginVal">4.0%</strong></label>
-        <input type="range" id="eqMargin" min="2" max="20" step="0.5" value="4" aria-label="Profit margin, percent of sales">
-        <div class="eq-ends" aria-hidden="true">
-          <span>All in, pre tax income</span>
-          <span>Four wall margin</span>
+        <div class="eq-controls">
+          <div class="eq-ctl">
+            <label for="eqMargin">Your profit margin: <strong id="eqMarginVal">4.0%</strong></label>
+            <input type="range" id="eqMargin" min="2" max="20" step="0.5" value="4" aria-label="Profit margin, percent of sales">
+            <div class="eq-ends" aria-hidden="true">
+              <span>All in, pre tax income</span>
+              <span>Four wall margin</span>
+            </div>
+          </div>
+          <div class="eq-ctl">
+            <label for="eqSave">Monthly waste recovered: <strong id="eqSaveVal">$1,000</strong></label>
+            <input type="range" id="eqSave" min="750" max="3000" step="250" value="1000" aria-label="Monthly equipment waste recovered, dollars">
+            <div class="eq-ends eq-ends--plain" aria-hidden="true">
+              <span>$750</span>
+              <span>$3,000</span>
+            </div>
+          </div>
         </div>
         <div class="eq-live" aria-hidden="true">
           <span>$1 recovered = <b>$<span id="eqSalesLive">33</span></b> of sales</span>
-          <span>$1,000/mo = <b><span id="eqTablesLive">7</span> tables</b> a night</span>
+          <span>$<span id="eqSaveLive">1,000</span>/mo = <b><span id="eqTablesLive">5</span> tables</b> a night</span>
         </div>
       </div>
       <div class="eq-row">
@@ -367,7 +382,7 @@
       </div>
       <div class="eq-row">
         <div class="eq-input">
-          <span class="eq-big">$1,000</span>
+          <span class="eq-big">$<span id="eqSaveBig">1,000</span></span>
           <span class="eq-label">of monthly equipment waste recovered</span>
         </div>
         <div class="eq-result">
@@ -379,7 +394,7 @@
           </div>
         </div>
       </div>
-      <p class="eq-fine">Assumes a party of four at a typical casual steakhouse check, thirty nights a month, and the margin set above. An illustration, not a projection.</p>
+      <p class="eq-fine">Assumes a party of four at a typical casual steakhouse check, thirty nights a month, and the margin and monthly recovery set above. An illustration, not a projection.</p>
     </div>
   </div>
 </section>
@@ -631,11 +646,19 @@
     const slider=document.getElementById('eqMargin'),marginVal=document.getElementById('eqMarginVal');
     const CHECK=170,NIGHTS=30;
     const icon='<svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="8.5" fill="none" stroke="#1f2226" stroke-width="2"/><circle cx="18" cy="4.5" r="2.6" fill="#be1e2d"/><circle cx="18" cy="31.5" r="2.6" fill="#be1e2d"/><circle cx="4.5" cy="18" r="2.6" fill="#be1e2d"/><circle cx="31.5" cy="18" r="2.6" fill="#be1e2d"/></svg>';
-    const render=(pct,slow)=>{
+    const saveSlider=document.getElementById('eqSave'),saveVal=document.getElementById('eqSaveVal');
+    const saveBig=document.getElementById('eqSaveBig'),saveLive=document.getElementById('eqSaveLive');
+    const fmt=n=>n.toLocaleString('en-US');
+    const render=(slow)=>{
+      const pct=parseFloat(slider.value);
+      const save=parseInt(saveSlider.value,10);
       const m=pct/100;
       const sales=Math.round(1/m);
-      const nTables=Math.max(1,Math.round(1000/m/NIGHTS/CHECK));
+      const nTables=Math.max(1,Math.round(save/m/NIGHTS/CHECK));
       marginVal.textContent=pct.toFixed(1)+'%';
+      saveVal.textContent='$'+fmt(save);
+      if(saveBig)saveBig.textContent=fmt(save);
+      if(saveLive)saveLive.textContent=fmt(save);
       const sl=document.getElementById('eqSalesLive'),tl=document.getElementById('eqTablesLive');
       if(sl)sl.textContent=sales;
       if(tl)tl.textContent=nTables;
@@ -643,18 +666,19 @@
       tablesEl.textContent=nTables;
       cells.replaceChildren();
       const nCells=Math.min(sales,50);
-      for(let i=0;i<nCells;i++){const s=document.createElement('i');s.style.transitionDelay=(i*(slow?22:6))+'ms';cells.appendChild(s);}
+      for(let i=0;i<nCells;i++){const c2=document.createElement('i');c2.style.transitionDelay=(i*(slow?22:6))+'ms';cells.appendChild(c2);}
       let html='';const nIcons=Math.min(nTables,12);
       for(let i=0;i<nIcons;i++)html+=icon;
       tables.innerHTML=html;
-      tables.querySelectorAll('svg').forEach((s,i)=>s.style.transitionDelay=((slow?140:0)+i*(slow?110:40))+'ms');
+      tables.querySelectorAll('svg').forEach((sv,i)=>sv.style.transitionDelay=((slow?140:0)+i*(slow?110:40))+'ms');
       if(!slow){
         const eq=cells.closest('.equation');
         if(eq&&!eq.classList.contains('in'))eq.classList.add('in');
       }
     };
-    render(4,true);
-    slider.addEventListener('input',()=>render(parseFloat(slider.value),false));
+    render(true);
+    slider.addEventListener('input',()=>render(false));
+    saveSlider.addEventListener('input',()=>render(false));
   })();
 
   /* the film: facade becomes the player */
