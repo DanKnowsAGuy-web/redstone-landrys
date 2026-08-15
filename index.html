@@ -203,6 +203,14 @@
   .engineer__close{margin-top:clamp(16px,2.5vw,22px);color:var(--ink);font-weight:500;max-width:56ch}
   @media (max-width:760px){.engineer{grid-template-columns:1fr}.engineer__photo{max-width:320px}}
 
+  /* the gold standard capstone */
+  .gold{margin-top:clamp(30px,5vw,46px);padding:clamp(24px,4vw,38px);border:2px solid var(--red);background:#fff}
+  .gold h3{font-size:clamp(1.15rem,2.4vw,1.6rem);margin-bottom:clamp(16px,2.5vw,22px);max-width:34ch}
+  .gold-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:clamp(14px,2.5vw,26px);margin-bottom:clamp(16px,2.5vw,20px)}
+  .gold-stat b{display:block;font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(1.6rem,3.4vw,2.2rem);color:var(--red);line-height:1.1}
+  .gold-stat i{display:block;font-style:normal;font-size:15.5px;color:var(--body-c);margin-top:4px;line-height:1.4}
+  .gold p{color:var(--body-c);max-width:60ch;font-size:1.05rem}
+
   /* proof */
   .proof-block + .proof-block{margin-top:clamp(28px,4vw,40px)}
   .proof-block h3{font-size:1.1rem;color:var(--red);margin-bottom:10px;letter-spacing:.05em}
@@ -475,6 +483,16 @@
       </div>
     </div>
 
+    <div class="gold rv">
+      <h3>And when replacement day finally comes, this is the gold standard</h3>
+      <div class="gold-stats" aria-hidden="true">
+        <span class="gold-stat"><b>IEER 31</b><i>a standard unit runs 10 to 13</i></span>
+        <span class="gold-stat"><b>COP 6</b><i>six units of cooling per unit of power</i></span>
+        <span class="gold-stat"><b>30 to 50%</b><i>less energy with solar thermal assist</i></span>
+      </div>
+      <p>One simple unit with far less to maintain, with solar thermal taking load off the compressors before they ever run. Specified from your own operating data and your depreciation schedule, never on a salesman's timetable.</p>
+    </div>
+
   </div>
 </section>
 
@@ -599,7 +617,7 @@
 
 <footer>
   <div class="wrap">
-    <p class="fine">Technology results shown are results achieved by the technologies we deploy at the sites named or documented in the studies cited, under their own conditions; they are not predictions for any specific restaurant. Regional programs aggregate hundreds of additional sites into the 200 plus total. Savings figures are stated as a share of the HVAC and cooling portion of a facility bill, not the whole bill, and every projection is planned at the floor of the proven range. Equipment life and maintenance statements, including added years of service life and maintenance reductions of up to 40 percent, reflect results documented for the technologies we deploy, assume proper installation and operation, and are not a warranty. Utility incentives are quoted from current program manuals during site scoping. The margin equivalence is an illustration based on the National Restaurant Association's 2025 Restaurant Operations Data Abstract, which reports median full service income before taxes of 2.8 percent of sales, and assumes a typical casual steakhouse average check; it is not a projection for any specific restaurant. Federal tax provisions referenced are as of August 2026; confirm with tax counsel.</p>
+    <p class="fine">Technology results shown are results achieved by the technologies we deploy at the sites named or documented in the studies cited, under their own conditions; they are not predictions for any specific restaurant. Regional programs aggregate hundreds of additional sites into the 200 plus total. Savings figures are stated as a share of the HVAC and cooling portion of a facility bill, not the whole bill, and every projection is planned at the floor of the proven range. Equipment specifications such as IEER and COP are manufacturer rated values for specific models and configurations. Equipment life and maintenance statements, including added years of service life and maintenance reductions of up to 40 percent, reflect results documented for the technologies we deploy, assume proper installation and operation, and are not a warranty. Utility incentives are quoted from current program manuals during site scoping. The margin equivalence is an illustration based on the National Restaurant Association's 2025 Restaurant Operations Data Abstract, which reports median full service income before taxes of 2.8 percent of sales, and assumes a typical casual steakhouse average check; it is not a projection for any specific restaurant. Federal tax provisions referenced are as of August 2026; confirm with tax counsel.</p>
     <p class="fine">Prepared by Redstone Energy in partnership with Energy Plus. Private and confidential, prepared for Landry's.</p>
   </div>
 </footer>
