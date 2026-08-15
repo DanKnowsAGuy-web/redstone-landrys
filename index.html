@@ -129,22 +129,17 @@
 
   /* the margin equation infographic */
   .equation{margin:clamp(30px,5vw,48px) 0 0;border:1px solid var(--line);background:#fff;padding:clamp(20px,3.5vw,36px)}
-  .eq-row{display:grid;grid-template-columns:minmax(170px,280px) 1fr;gap:clamp(12px,2.5vw,28px);align-items:center;padding:clamp(14px,2.5vw,22px) 0}
-  .eq-input{display:flex;align-items:center;gap:14px}
-  .eq-input .eq-label{margin-top:0}
-  .eq-result{display:flex;align-items:center;gap:clamp(14px,2.5vw,26px);flex-wrap:wrap}
-  .eq-val{display:flex;align-items:center;gap:12px}
-  .eq-row + .eq-row{border-top:1px solid var(--line)}
+  .eq-val{display:flex;align-items:center;gap:14px}
+  .eq-out{margin-top:12px;font-size:clamp(19px,2vw,22px);color:var(--ink)}
+  .eq-out b{color:var(--red);font-family:'Oswald',sans-serif;font-weight:600;font-size:1.12em}
+  .eq-visual{display:flex;align-items:center;gap:clamp(16px,3vw,30px);flex-wrap:wrap;border-top:1px solid var(--line);margin-top:clamp(16px,2.5vw,24px);padding-top:clamp(16px,2.5vw,24px)}
   .eq-big{font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(1.7rem,3.6vw,2.5rem);color:var(--ink);line-height:1.05;display:block}
   .eq-red{color:var(--red)}
-  .eq-sign{font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(1.5rem,3vw,2.1rem);color:var(--mut)}
   .eq-label{display:block;font-size:1.25rem;color:var(--ink);max-width:26ch;line-height:1.4}
-  .eq-cells{display:flex;flex-wrap:wrap;gap:5px;flex:1 1 200px;min-width:0;max-width:300px}
-  .eq-cells i{width:13px;height:13px;background:var(--red)}
   .eq-tables{display:flex;gap:12px;flex-wrap:wrap;flex:1 1 200px;min-width:0;max-width:340px}
   .eq-tables svg{width:36px;height:36px;display:block}
-  .js .eq-cells i,.js .eq-tables svg{opacity:0;transform:scale(.35);transition:opacity .45s var(--ease),transform .45s var(--ease)}
-  .js .equation.in .eq-cells i,.js .equation.in .eq-tables svg{opacity:1;transform:none}
+  .js .eq-tables svg{opacity:0;transform:scale(.35);transition:opacity .45s var(--ease),transform .45s var(--ease)}
+  .js .equation.in .eq-tables svg{opacity:1;transform:none}
   .eq-fine{margin-top:16px;font-size:13.5px;color:var(--cap);line-height:1.5}
   .eq-dial{padding-bottom:clamp(14px,2.5vw,20px);border-bottom:1px solid var(--line)}
   .eq-dial label{display:block;font-family:'Barlow Condensed';font-size:20px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);font-weight:600;margin-bottom:12px}
@@ -163,19 +158,12 @@
   .eq-ends span::before{content:"";width:11px;height:11px;border:1px solid var(--line);flex:0 0 11px}
   .eq-ends span:first-child::before{background:rgba(190,30,45,.38)}
   .eq-ends span:last-child::before{background:rgba(84,86,91,.38)}
-  .eq-live{display:flex;gap:8px 26px;flex-wrap:wrap;margin-top:14px;font-size:19px;color:var(--ink)}
-  .eq-live b{color:var(--red);font-family:'Oswald',sans-serif;font-weight:600}
   @media (max-width:640px){
     .equation{padding:18px 16px}
-    .eq-row{padding:14px 0}
-    .eq-cells{gap:4px;max-width:100%}
-    .eq-cells i{width:10px;height:10px}
-    .eq-tables{gap:8px}
+          .eq-tables{gap:8px}
     .eq-tables svg{width:28px;height:28px}
     .eq-label{font-size:1.15rem}
-    .eq-row{grid-template-columns:1fr}
-    .eq-input{gap:12px}
-  }
+      }
   @media (max-width:640px){.eq-row{grid-template-columns:1fr;gap:8px}.eq-sign{text-align:left}}
 
   /* the film */
@@ -342,59 +330,34 @@
     </div>
 
     <div class="equation rv">
-      <div class="eq-dial">
-        <div class="eq-controls">
-          <div class="eq-ctl">
-            <label for="eqMargin">Your profit margin: <strong id="eqMarginVal">4.0%</strong></label>
-            <input type="range" id="eqMargin" min="2" max="20" step="0.5" value="4" aria-label="Profit margin, percent of sales">
-            <div class="eq-ends" aria-hidden="true">
-              <span>All in, pre tax income</span>
-              <span>Four wall margin</span>
-            </div>
+      <div class="eq-controls">
+        <div class="eq-ctl">
+          <label for="eqMargin">Your profit margin: <strong id="eqMarginVal">4.0%</strong></label>
+          <input type="range" id="eqMargin" min="2" max="20" step="0.5" value="4" aria-label="Profit margin, percent of sales">
+          <div class="eq-ends" aria-hidden="true">
+            <span>All in, pre tax income</span>
+            <span>Four wall margin</span>
           </div>
-          <div class="eq-ctl">
-            <label for="eqSave">Monthly waste recovered: <strong id="eqSaveVal">$1,000</strong></label>
-            <input type="range" id="eqSave" min="750" max="3000" step="250" value="1000" aria-label="Monthly equipment waste recovered, dollars">
-            <div class="eq-ends eq-ends--plain" aria-hidden="true">
-              <span>$750</span>
-              <span>$3,000</span>
-            </div>
-          </div>
+          <p class="eq-out">$1 recovered = <b>$<span id="eqSales">25</span></b> of sales</p>
         </div>
-        <div class="eq-live" aria-hidden="true">
-          <span>$1 recovered = <b>$<span id="eqSalesLive">33</span></b> of sales</span>
-          <span>$<span id="eqSaveLive">1,000</span>/mo = <b><span id="eqTablesLive">5</span> tables</b> a night</span>
+        <div class="eq-ctl">
+          <label for="eqSave">Energy overspend (mo): <strong id="eqSaveVal">$1,000</strong></label>
+          <input type="range" id="eqSave" min="750" max="3000" step="250" value="1000" aria-label="Monthly energy overspend recovered, dollars">
+          <div class="eq-ends eq-ends--plain" aria-hidden="true">
+            <span>$750</span>
+            <span>$3,000</span>
+          </div>
+          <p class="eq-out">$<span id="eqSaveOut">1,000</span> a month = <b><span id="eqCoversOut">20</span> covers</b> a night</p>
         </div>
       </div>
-      <div class="eq-row">
-        <div class="eq-input">
-          <span class="eq-big">$1</span>
-          <span class="eq-label">recovered from equipment waste</span>
-        </div>
-        <div class="eq-result">
-          <span class="eq-sign">=</span>
-          <div class="eq-cells" id="eqCells" aria-hidden="true"></div>
-          <div class="eq-val">
-            <span class="eq-big eq-red"><span id="eqSales">33</span></span>
-            <span class="eq-label">dollars of food sales, in profit terms</span>
-          </div>
+      <div class="eq-visual">
+        <div class="eq-tables" id="eqTables" aria-hidden="true"></div>
+        <div class="eq-val">
+          <span class="eq-big eq-red"><span id="eqCoversN">20</span></span>
+          <span class="eq-label">more covers seated every night, with no added cook, server, or pound of beef</span>
         </div>
       </div>
-      <div class="eq-row">
-        <div class="eq-input">
-          <span class="eq-big">$<span id="eqSaveBig">1,000</span></span>
-          <span class="eq-label">of monthly equipment waste recovered</span>
-        </div>
-        <div class="eq-result">
-          <span class="eq-sign">=</span>
-          <div class="eq-tables" id="eqTables" aria-hidden="true"></div>
-          <div class="eq-val">
-            <span class="eq-big eq-red"><span id="eqTablesN">7</span></span>
-            <span class="eq-label">more tables seated every night, with no added cook, server, or pound of beef</span>
-          </div>
-        </div>
-      </div>
-      <p class="eq-fine">Assumes a party of four at a typical casual steakhouse check, thirty nights a month, and the margin and monthly recovery set above. An illustration, not a projection.</p>
+      <p class="eq-fine">Assumes a party of four at a typical casual steakhouse check, thirty nights a month, and the margin and monthly overspend set above. An illustration, not a projection.</p>
     </div>
   </div>
 </section>
@@ -640,45 +603,39 @@
 
   /* the interactive margin equation */
   (function(){
-    const cells=document.getElementById('eqCells'),tables=document.getElementById('eqTables');
-    if(!cells)return;
-    const salesEl=document.getElementById('eqSales'),tablesEl=document.getElementById('eqTablesN');
-    const slider=document.getElementById('eqMargin'),marginVal=document.getElementById('eqMarginVal');
-    const CHECK=170,NIGHTS=30;
+    const tables=document.getElementById('eqTables');
+    if(!tables)return;
+    const mS=document.getElementById('eqMargin'),marginVal=document.getElementById('eqMarginVal');
+    const saveS=document.getElementById('eqSave'),saveVal=document.getElementById('eqSaveVal');
+    const salesEl=document.getElementById('eqSales'),saveOut=document.getElementById('eqSaveOut');
+    const coversOut=document.getElementById('eqCoversOut'),coversN=document.getElementById('eqCoversN');
+    const NIGHTS=30,CHECK_PER_COVER=42.5;
     const icon='<svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="8.5" fill="none" stroke="#1f2226" stroke-width="2"/><circle cx="18" cy="4.5" r="2.6" fill="#be1e2d"/><circle cx="18" cy="31.5" r="2.6" fill="#be1e2d"/><circle cx="4.5" cy="18" r="2.6" fill="#be1e2d"/><circle cx="31.5" cy="18" r="2.6" fill="#be1e2d"/></svg>';
-    const saveSlider=document.getElementById('eqSave'),saveVal=document.getElementById('eqSaveVal');
-    const saveBig=document.getElementById('eqSaveBig'),saveLive=document.getElementById('eqSaveLive');
     const fmt=n=>n.toLocaleString('en-US');
     const render=(slow)=>{
-      const pct=parseFloat(slider.value);
-      const save=parseInt(saveSlider.value,10);
+      const pct=parseFloat(mS.value);
+      const save=parseInt(saveS.value,10);
       const m=pct/100;
       const sales=Math.round(1/m);
-      const nTables=Math.max(1,Math.round(save/m/NIGHTS/CHECK));
+      const covers=Math.max(1,Math.round(save/m/NIGHTS/CHECK_PER_COVER));
+      const nIcons=Math.min(12,Math.max(1,Math.round(covers/4)));
       marginVal.textContent=pct.toFixed(1)+'%';
       saveVal.textContent='$'+fmt(save);
-      if(saveBig)saveBig.textContent=fmt(save);
-      if(saveLive)saveLive.textContent=fmt(save);
-      const sl=document.getElementById('eqSalesLive'),tl=document.getElementById('eqTablesLive');
-      if(sl)sl.textContent=sales;
-      if(tl)tl.textContent=nTables;
       salesEl.textContent=sales;
-      tablesEl.textContent=nTables;
-      cells.replaceChildren();
-      const nCells=Math.min(sales,50);
-      for(let i=0;i<nCells;i++){const c2=document.createElement('i');c2.style.transitionDelay=(i*(slow?22:6))+'ms';cells.appendChild(c2);}
-      let html='';const nIcons=Math.min(nTables,12);
-      for(let i=0;i<nIcons;i++)html+=icon;
+      saveOut.textContent=fmt(save);
+      coversOut.textContent=covers;
+      coversN.textContent=covers;
+      let html='';for(let i=0;i<nIcons;i++)html+=icon;
       tables.innerHTML=html;
       tables.querySelectorAll('svg').forEach((sv,i)=>sv.style.transitionDelay=((slow?140:0)+i*(slow?110:40))+'ms');
       if(!slow){
-        const eq=cells.closest('.equation');
+        const eq=tables.closest('.equation');
         if(eq&&!eq.classList.contains('in'))eq.classList.add('in');
       }
     };
     render(true);
-    slider.addEventListener('input',()=>render(false));
-    saveSlider.addEventListener('input',()=>render(false));
+    mS.addEventListener('input',()=>render(false));
+    saveS.addEventListener('input',()=>render(false));
   })();
 
   /* the film: facade becomes the player */
