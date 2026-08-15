@@ -117,6 +117,22 @@
   .combined .num{font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(2.2rem,5vw,3.4rem);color:var(--red);line-height:1.05}
   .combined p{margin-top:12px;color:var(--body-c);max-width:58ch}
 
+  /* counted numbers */
+  [data-count]{font-variant-numeric:tabular-nums}
+
+  /* the engineer feature */
+  .engineer{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:clamp(22px,4vw,44px);align-items:start;margin-top:10px}
+  .engineer__photo{margin:0}
+  .engineer__photo img{width:100%;display:block;border:1px solid var(--line)}
+  .engineer__photo figcaption{margin-top:10px;font-family:'Barlow Condensed';font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+  .engineer__lede{font-family:'Barlow',sans-serif;font-weight:500;font-size:clamp(1.1rem,2vw,1.3rem);line-height:1.45;color:var(--ink);max-width:56ch}
+  .creds{margin-top:clamp(18px,3vw,26px);display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+  .cred{background:#fff;padding:clamp(16px,2.5vw,24px)}
+  .cred h4{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.03em;font-size:.95rem;color:var(--red);margin-bottom:8px;line-height:1.3}
+  .cred p{font-size:.93rem;line-height:1.55;color:var(--body-c)}
+  .engineer__close{margin-top:clamp(16px,2.5vw,22px);color:var(--ink);font-weight:500;max-width:56ch}
+  @media (max-width:760px){.engineer{grid-template-columns:1fr}.engineer__photo{max-width:320px}}
+
   /* proof */
   .proof-block + .proof-block{margin-top:clamp(28px,4vw,40px)}
   .proof-block h3{font-size:1.1rem;color:var(--red);margin-bottom:10px;letter-spacing:.05em}
@@ -267,12 +283,14 @@
   <div class="wrap">
     <div class="prose">
       <h2 class="rv">A steakhouse is one of the hardest buildings in America to power.</h2>
-      <p class="rv">Full service restaurants use five to seven times more energy per square foot than a typical commercial building. Cooking gets the blame, but waste is in cooling and refrigeration, running against each other all night.</p>
-      <p class="rv">On the Gulf Coast, the fight is worse. Every guest at every table adds heat and moisture to the room. The kitchen pumps steam. An air conditioning system older than five to seven years has quietly lost the ability to remove that moisture out of the air. Walk-ins work harder, the dining room feels warmer than the thermostat says, and equipment wears itself out years earlier than needed.</p>
     </div>
     <div class="stat-pull rv">
-      <span class="big">5 to 7&times;</span>
-      <span class="why">the energy intensity of a typical commercial building. A single electric fryer uses more electricity in a year than an average American home. Multiply by nearly one hundred steakhouses.</span>
+      <span class="big"><span data-count="5">5</span> to <span data-count="7">7</span>&times;</span>
+      <span class="why">more energy per square foot than a typical commercial building</span>
+    </div>
+    <div class="prose">
+      <p class="rv">Cooking gets the blame, but waste is in cooling and refrigeration, running against each other all night. A single electric fryer uses more electricity in a year than the average American home.</p>
+      <p class="rv">On the Gulf Coast, the fight is worse. Every guest at every table adds heat and moisture to the room. The kitchen pumps steam. An air conditioning system older than five to seven years has quietly lost the ability to remove that moisture out of the air. Walk-ins work harder, the dining room feels warmer than the thermostat says, and equipment wears itself out years earlier than needed.</p>
     </div>
     <div class="prose">
       <p class="rv">Restaurant industry data puts median full service income before taxes at 2.8 percent of sales. At that margin, every dollar of energy waste we remove does the profit work of roughly 35 dollars of food sales.</p>
@@ -372,7 +390,7 @@
     </div>
 
     <div class="combined rv">
-      <div class="num">20 to 55%</div>
+      <div class="num"><span data-count="20">20</span> to <span data-count="55">55</span>%</div>
       <p>Measures like these have reduced the HVAC and cooling portion of facility bills by 20 to 55 percent. We plan every project at the floor of that range, and we prove the result on your meters before anyone commits to more.</p>
     </div>
   </div>
@@ -385,7 +403,30 @@
     </div>
     <div class="proof-block rv">
       <h3>The engineer</h3>
-      <p class="prose">Verification is led by our chief technical engineer, whose four decades in materials engineering include five years as a sole source supplier to Sandia National Laboratories. When we say a number was measured, he is the one who signed off on how it was measured.</p>
+      <div class="engineer">
+        <figure class="engineer__photo">
+          <img src="assets/img/cliff-lab.jpg" alt="Cliff Suljak, Chief Materials Engineer, in a materials testing laboratory." loading="lazy">
+          <figcaption>Cliff Suljak · Chief Technical Engineer</figcaption>
+        </figure>
+        <div class="engineer__body">
+          <p class="engineer__lede">When the Department of Energy and the Department of Defense needed measurements right the first time, Sandia National Laboratories did not put the contract out to bid. They handed it to Cliff Suljak.</p>
+          <div class="creds">
+            <div class="cred rv">
+              <h4>Sole source to Sandia National Laboratories</h4>
+              <p>Awarded directly, never bid. Cliff assembled and directed a 22 person engineering team across four facilities, completing hundreds of task orders for national defense infrastructure.</p>
+            </div>
+            <div class="cred rv">
+              <h4>Built a major utility's quality program</h4>
+              <p>As Manager of Materials and Quality Services for one of the Southwest's largest utilities, he built its quality control infrastructure on a $600 million program. His innovations were later adopted by utilities across the country.</p>
+            </div>
+            <div class="cred rv">
+              <h4>Helped write the national standards</h4>
+              <p>Eight years on the ASTM committee developing test methods for advanced materials. The methods he helped develop became national acceptance criteria for utility procurement.</p>
+            </div>
+          </div>
+          <p class="engineer__close">When we say a number was measured, he is the one who signed off on how it was measured.</p>
+        </div>
+      </div>
     </div>
     <div class="proof-block rv">
       <h3>The protocol</h3>
@@ -484,6 +525,22 @@
   document.documentElement.classList.add('js');
   const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
   document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i%6,4)*60)+'ms';io.observe(el)});
+
+  /* numbers settle into place on reveal */
+  if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
+    const cio=new IntersectionObserver(es=>{es.forEach(e=>{
+      if(!e.isIntersecting)return;
+      cio.unobserve(e.target);
+      const el=e.target,to=parseFloat(el.dataset.count),t0=performance.now(),dur=950;
+      const step=t=>{
+        const p=Math.min(1,(t-t0)/dur),ease=1-Math.pow(1-p,4);
+        el.textContent=Math.round(to*ease);
+        if(p<1)requestAnimationFrame(step);else el.textContent=el.dataset.count;
+      };
+      requestAnimationFrame(step);
+    })},{threshold:.6});
+    document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
+  }
 
   const RECORD=[
     { t:"Whole building examples", c:3, rows:[
