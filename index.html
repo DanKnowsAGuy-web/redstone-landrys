@@ -129,23 +129,27 @@
 
   /* the margin equation infographic */
   .equation{margin:clamp(30px,5vw,48px) 0 0;border:1px solid var(--line);background:#fff;padding:clamp(20px,3.5vw,36px)}
-  .eq-row{display:grid;grid-template-columns:minmax(150px,220px) 44px 1fr;gap:clamp(12px,2.5vw,28px);align-items:center;padding:clamp(14px,2.5vw,22px) 0}
+  .eq-row{display:grid;grid-template-columns:minmax(170px,280px) 44px 1fr;gap:clamp(12px,2.5vw,28px);align-items:center;padding:clamp(14px,2.5vw,22px) 0}
+  .eq-input{display:flex;align-items:center;gap:14px}
+  .eq-input .eq-label{margin-top:0}
+  .eq-result{display:flex;align-items:center;gap:clamp(14px,2.5vw,26px);flex-wrap:wrap}
+  .eq-val{display:flex;align-items:center;gap:12px}
   .eq-row + .eq-row{border-top:1px solid var(--line)}
   .eq-big{font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(1.7rem,3.6vw,2.5rem);color:var(--ink);line-height:1.05;display:block}
   .eq-red{color:var(--red)}
   .eq-sign{font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(1.4rem,3vw,2rem);color:var(--mut);text-align:center}
-  .eq-label{display:block;margin-top:6px;font-size:1.1rem;color:var(--body-c);max-width:34ch;line-height:1.45}
-  .eq-cells{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;max-width:420px}
+  .eq-label{display:block;font-size:1.15rem;color:var(--body-c);max-width:26ch;line-height:1.4}
+  .eq-cells{display:flex;flex-wrap:wrap;gap:5px;max-width:300px}
   .eq-cells i{width:13px;height:13px;background:var(--red)}
-  .eq-tables{display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+  .eq-tables{display:flex;gap:12px;flex-wrap:wrap;max-width:340px}
   .eq-tables svg{width:36px;height:36px;display:block}
   .js .eq-cells i,.js .eq-tables svg{opacity:0;transform:scale(.35);transition:opacity .45s var(--ease),transform .45s var(--ease)}
   .js .equation.in .eq-cells i,.js .equation.in .eq-tables svg{opacity:1;transform:none}
   .eq-fine{margin-top:16px;font-size:13.5px;color:var(--cap);line-height:1.5}
   .eq-dial{padding-bottom:clamp(14px,2.5vw,20px);border-bottom:1px solid var(--line)}
-  .eq-dial label{display:block;font-family:'Barlow Condensed';font-size:17px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);font-weight:600;margin-bottom:12px}
-  .eq-dial label strong{color:var(--red);font-size:20px}
-  .eq-dial label em{font-style:normal;color:var(--mut);font-size:15px;margin-left:6px}
+  .eq-dial label{display:block;font-family:'Barlow Condensed';font-size:20px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);font-weight:600;margin-bottom:12px}
+  .eq-dial label strong{color:var(--red);font-size:25px}
+  .eq-dial label em{display:block;font-style:normal;color:var(--mut);font-size:16px;letter-spacing:.06em;margin-top:3px;font-weight:500}
   .eq-bands{margin:4px 0 14px;max-width:560px}
   .eq-bandrow + .eq-bandrow{margin-top:12px}
   .eq-bandrow .bl{display:block;font-size:15px;color:var(--body-c);margin-bottom:5px}
@@ -163,7 +167,7 @@
     .eq-bands{display:none}
     .eq-dial-note--full{display:none}
     .eq-dial-note--short{display:block}
-    .eq-live{display:flex;gap:8px 20px;flex-wrap:wrap;margin-top:10px;font-size:17px;color:var(--body-c)}
+    .eq-live{display:flex;gap:8px 20px;flex-wrap:wrap;margin-top:10px;font-size:18px;color:var(--body-c)}
     .eq-live b{color:var(--red);font-family:'Oswald',sans-serif;font-weight:600}
     .equation{padding:18px 16px}
     .eq-row{padding:14px 0}
@@ -171,7 +175,9 @@
     .eq-cells i{width:10px;height:10px}
     .eq-tables{gap:8px}
     .eq-tables svg{width:28px;height:28px}
-    .eq-label{font-size:1.02rem}
+    .eq-label{font-size:1.06rem}
+    .eq-row{grid-template-columns:1fr}
+    .eq-input{gap:12px}
   }
   @media (max-width:640px){.eq-row{grid-template-columns:1fr;gap:8px}.eq-sign{text-align:left}}
 
@@ -387,27 +393,31 @@
         <span class="eq-dial-note eq-dial-note--short">Typical: all in margin 2 to 6 percent · four wall margin 10 to 20 percent.</span>
       </div>
       <div class="eq-row">
-        <div class="eq-side">
+        <div class="eq-input">
           <span class="eq-big">$1</span>
           <span class="eq-label">of energy waste removed</span>
         </div>
         <span class="eq-sign">=</span>
-        <div class="eq-side">
+        <div class="eq-result">
           <div class="eq-cells" id="eqCells" aria-hidden="true"></div>
-          <span class="eq-big eq-red">$<span id="eqSales">33</span></span>
-          <span class="eq-label">of food sales, in profit terms</span>
+          <div class="eq-val">
+            <span class="eq-big eq-red"><span id="eqSales">33</span></span>
+            <span class="eq-label">dollars of food sales, in profit terms</span>
+          </div>
         </div>
       </div>
       <div class="eq-row">
-        <div class="eq-side">
+        <div class="eq-input">
           <span class="eq-big">$1,000</span>
           <span class="eq-label">of monthly waste removed</span>
         </div>
         <span class="eq-sign">=</span>
-        <div class="eq-side">
+        <div class="eq-result">
           <div class="eq-tables" id="eqTables" aria-hidden="true"></div>
-          <span class="eq-big eq-red"><span id="eqTablesN">7</span> more tables</span>
-          <span class="eq-label">seated every night, with no added cook, server, or pound of beef</span>
+          <div class="eq-val">
+            <span class="eq-big eq-red"><span id="eqTablesN">7</span></span>
+            <span class="eq-label">more tables seated every night, with no added cook, server, or pound of beef</span>
+          </div>
         </div>
       </div>
       <p class="eq-fine">Assumes a party of four at a typical casual steakhouse check, thirty nights a month, and the margin set above. An illustration, not a projection.</p>
