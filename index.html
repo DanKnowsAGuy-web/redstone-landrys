@@ -38,6 +38,13 @@
   .lockup img{height:44px;display:block}
   .lockup .partner{font-family:'Barlow Condensed';font-size:14.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);border-left:1px solid var(--line);padding-left:18px}
   .prepared{font-family:'Barlow Condensed';font-size:14.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);font-weight:600}
+  @media (max-width:640px){
+    header{padding:12px 0}
+    .header-row{flex-wrap:nowrap;gap:12px;align-items:center}
+    .lockup img{height:30px}
+    .lockup .partner{display:none}
+    .prepared{font-size:12px;letter-spacing:.1em;text-align:right;flex-shrink:0}
+  }
 
   /* ---------- hero: scroll scrubbed film ---------- */
   .hero-scrub{height:280vh}
@@ -148,8 +155,24 @@
   .eq-fill--fourwall{background:rgba(84,86,91,.3)}
   .eq-median{position:absolute;top:-4px;bottom:-4px;width:2.5px;background:var(--red)}
   .eq-you{position:absolute;top:-4px;bottom:-4px;width:2.5px;background:var(--ink);left:5.6%;transition:left .15s linear}
-  .eq-dial input[type=range]{width:100%;max-width:560px;accent-color:var(--red);display:block}
+  .eq-dial input[type=range]{width:100%;max-width:560px;accent-color:var(--red);display:block;height:28px}
   .eq-dial-note{display:block;margin-top:10px;font-size:15px;color:var(--body-c);max-width:66ch;line-height:1.55}
+  .eq-dial-note--short{display:none}
+  .eq-live{display:none}
+  @media (max-width:640px){
+    .eq-bands{display:none}
+    .eq-dial-note--full{display:none}
+    .eq-dial-note--short{display:block}
+    .eq-live{display:flex;gap:8px 20px;flex-wrap:wrap;margin-top:10px;font-size:17px;color:var(--body-c)}
+    .eq-live b{color:var(--red);font-family:'Oswald',sans-serif;font-weight:600}
+    .equation{padding:18px 16px}
+    .eq-row{padding:14px 0}
+    .eq-cells{gap:4px;max-width:100%}
+    .eq-cells i{width:10px;height:10px}
+    .eq-tables{gap:8px}
+    .eq-tables svg{width:28px;height:28px}
+    .eq-label{font-size:1.02rem}
+  }
   @media (max-width:640px){.eq-row{grid-template-columns:1fr;gap:8px}.eq-sign{text-align:left}}
 
   /* the film */
@@ -356,7 +379,12 @@
           </div>
         </div>
         <input type="range" id="eqMargin" min="2" max="20" step="0.5" value="3" aria-label="Profit margin, percent of sales">
-        <span class="eq-dial-note">Start with the all in number: the industry's reported median full service income before taxes is 2.8 percent of sales, the red line above. Chain restaurants often run four wall margins of 10 to 20 percent. Set yours and watch the math follow.</span>
+        <div class="eq-live" aria-hidden="true">
+          <span>$1 waste = <b>$<span id="eqSalesLive">33</span></b> of sales</span>
+          <span>$1,000/mo = <b><span id="eqTablesLive">7</span> tables</b> a night</span>
+        </div>
+        <span class="eq-dial-note eq-dial-note--full">Start with the all in number: the industry's reported median full service income before taxes is 2.8 percent of sales, the red line above. Chain restaurants often run four wall margins of 10 to 20 percent. Set yours and watch the math follow.</span>
+        <span class="eq-dial-note eq-dial-note--short">Typical: all in margin 2 to 6 percent · four wall margin 10 to 20 percent.</span>
       </div>
       <div class="eq-row">
         <div class="eq-side">
@@ -639,6 +667,9 @@
       const sales=Math.round(1/m);
       const nTables=Math.max(1,Math.round(1000/m/NIGHTS/CHECK));
       marginVal.textContent=pct.toFixed(1)+'%';
+      const sl=document.getElementById('eqSalesLive'),tl=document.getElementById('eqTablesLive');
+      if(sl)sl.textContent=sales;
+      if(tl)tl.textContent=nTables;
       const kind=document.getElementById('eqMarginKind');
       if(kind)kind.textContent=pct<=6?'all in, pre tax income':(pct>=10?'four wall, restaurant level':'between the typical bands');
       document.querySelectorAll('.eq-you').forEach(y=>y.style.left=(((pct-2)/18)*100).toFixed(1)+'%');
