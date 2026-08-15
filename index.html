@@ -56,7 +56,7 @@
   .hero-scrim{position:absolute;inset:0;background:linear-gradient(160deg,rgba(4,6,8,.72) 0%,rgba(4,6,8,.38) 45%,rgba(4,6,8,.12) 70%,rgba(4,6,8,.55) 100%)}
   .ember-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
   .hero-content{position:relative;z-index:1}
-  .hero-content h1{font-size:clamp(2.5rem,6.6vw,4.6rem);line-height:1.06;max-width:16ch;color:#fff}
+  .hero-content h1{font-size:clamp(2.1rem,5.2vw,3.7rem);line-height:1.12;max-width:24ch;color:#fff}
   .hero-content h1 em{font-style:normal;color:#e05252}
   .hero-content .lead{margin-top:clamp(24px,3.5vw,36px);font-size:clamp(1.12rem,2.1vw,1.35rem);line-height:1.55;color:#e9e6e0;max-width:52ch}
   .hero-content .addressee{margin-bottom:22px;font-family:'Barlow Condensed';font-size:16px;letter-spacing:.16em;text-transform:uppercase;color:#cdd5db;font-weight:500}
@@ -214,16 +214,6 @@
   .results .pct{font-family:'Oswald',sans-serif;font-weight:600;font-size:1.4rem;color:var(--red);white-space:nowrap}
   .results .pct small{font-family:'Barlow',sans-serif;font-weight:400;font-size:.58em;color:var(--mut);letter-spacing:0}
 
-  /* statement band: the cattle moment */
-  .statement{position:relative;padding:clamp(84px,14vw,160px) 0;text-align:center;overflow:hidden}
-  .statement .bg{position:absolute;inset:0;background:url(assets/img/cattle.jpg) center 35%/cover no-repeat}
-  @media (min-width:1000px) and (pointer:fine){.statement .bg{background-attachment:fixed}}
-  .statement .scrim{position:absolute;inset:0;background:rgba(12,9,9,.5)}
-  .statement .wrap{position:relative;z-index:1}
-  .statement h2{font-size:clamp(1.9rem,4.4vw,3rem);line-height:1.15;max-width:24ch;margin:0 auto;color:#fff;text-shadow:0 2px 22px rgba(0,0,0,.45)}
-  .statement h2 em{font-style:normal;color:#ea5c50}
-  .statement p{margin:clamp(18px,3vw,26px) auto 0;max-width:56ch;color:rgba(255,255,255,.92);text-shadow:0 1px 14px rgba(0,0,0,.5)}
-
   /* drawn moments */
   .js .diagram svg path{stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 1.6s var(--ease) .25s}
   .js .diagram.in svg path{stroke-dashoffset:0}
@@ -307,7 +297,6 @@
     .ledger__col{animation:none}
     .hero-media{animation:none}
     .hero-hint{display:none}
-    .statement .bg{background-attachment:scroll}
     .js .diagram svg path{stroke-dashoffset:0;transition:none}
     .js .act-label .rule{transform:none;transition:none}
   }
@@ -335,19 +324,10 @@
     <canvas class="ember-canvas" id="emberCanvas" aria-hidden="true"></canvas>
     <div class="wrap hero-content">
       <p class="addressee rv">Saltgrass Steak House · A Texas Energy Pilot · August 2026</p>
-      <h1 class="rv">Your best nights are your <em>most expensive</em> nights.</h1>
-      <p class="lead rv">A packed dining room loads every system in the building at once. Most of that cost is controllable. This page shows where it hides and how we remove it.</p>
+      <h1 class="rv">You cannot control the price of cattle. You can control the price of <em>comfort</em>.</h1>
+      <p class="lead rv">Cut food quality and the guest tastes it. Cut labor and the guest feels it. Energy is the only line item that can fall sharply without a single guest noticing. This page shows where it hides in a steakhouse and how we remove it.</p>
     </div>
     <div class="hero-hint" aria-hidden="true"></div>
-  </div>
-</div>
-
-<div class="statement">
-  <div class="bg" aria-hidden="true"></div>
-  <div class="scrim" aria-hidden="true"></div>
-  <div class="wrap">
-    <h2 class="rv">You cannot control the price of cattle. You can control the price of <em>comfort</em>.</h2>
-    <p class="rv">Cut food quality and the guest tastes it. Cut labor and the guest feels it. Energy is one of the only line items in a steakhouse that can fall sharply without a single guest noticing, because the fix makes the dining room more comfortable, not less.</p>
   </div>
 </div>
 
@@ -361,7 +341,7 @@
       <span class="why">more energy per square foot than a typical commercial building</span>
     </div>
     <div class="prose">
-      <p class="rv">Cooking gets the blame, but the waste is in cooling and refrigeration, running against each other all night. A single electric fryer uses more electricity in a year than the average American home.</p>
+      <p class="rv">Your best nights are your most expensive nights. Cooking gets the blame, but the waste is in cooling and refrigeration, running against each other all night. A single electric fryer uses more electricity in a year than the average American home.</p>
       <p class="rv">On the Gulf Coast, the fight is worse. Every guest adds heat and moisture, the kitchen pumps steam, and a cooling system past its fifth year has quietly lost the ability to pull that moisture back out. Walk-ins work harder, the dining room feels warmer than the thermostat says, and equipment wears out years earlier than it should.</p>
     </div>
 
