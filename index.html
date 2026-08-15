@@ -129,7 +129,7 @@
 
   /* the margin equation infographic */
   .equation{margin:clamp(30px,5vw,48px) 0 0;border:1px solid var(--line);background:#fff;padding:clamp(20px,3.5vw,36px)}
-  .eq-row{display:grid;grid-template-columns:minmax(170px,280px) 44px 1fr;gap:clamp(12px,2.5vw,28px);align-items:center;padding:clamp(14px,2.5vw,22px) 0}
+  .eq-row{display:grid;grid-template-columns:minmax(170px,280px) 1fr;gap:clamp(12px,2.5vw,28px);align-items:center;padding:clamp(14px,2.5vw,22px) 0}
   .eq-input{display:flex;align-items:center;gap:14px}
   .eq-input .eq-label{margin-top:0}
   .eq-result{display:flex;align-items:center;gap:clamp(14px,2.5vw,26px);flex-wrap:wrap}
@@ -137,8 +137,8 @@
   .eq-row + .eq-row{border-top:1px solid var(--line)}
   .eq-big{font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(1.7rem,3.6vw,2.5rem);color:var(--ink);line-height:1.05;display:block}
   .eq-red{color:var(--red)}
-  .eq-sign{font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(1.4rem,3vw,2rem);color:var(--mut);text-align:center}
-  .eq-label{display:block;font-size:1.15rem;color:var(--body-c);max-width:26ch;line-height:1.4}
+  .eq-sign{font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(1.5rem,3vw,2.1rem);color:var(--mut)}
+  .eq-label{display:block;font-size:1.25rem;color:var(--ink);max-width:26ch;line-height:1.4}
   .eq-cells{display:flex;flex-wrap:wrap;gap:5px;max-width:300px}
   .eq-cells i{width:13px;height:13px;background:var(--red)}
   .eq-tables{display:flex;gap:12px;flex-wrap:wrap;max-width:340px}
@@ -152,7 +152,7 @@
   .eq-dial label em{display:block;font-style:normal;color:var(--mut);font-size:16px;letter-spacing:.06em;margin-top:3px;font-weight:500}
   .eq-bands{margin:4px 0 14px;max-width:560px}
   .eq-bandrow + .eq-bandrow{margin-top:12px}
-  .eq-bandrow .bl{display:block;font-size:15px;color:var(--body-c);margin-bottom:5px}
+  .eq-bandrow .bl{display:block;font-size:16px;color:var(--body-c);margin-bottom:5px}
   .eq-track{position:relative;height:16px;background:var(--bg-alt);border:1px solid var(--line)}
   .eq-fill{position:absolute;top:0;bottom:0}
   .eq-fill--allin{background:rgba(190,30,45,.3)}
@@ -160,14 +160,14 @@
   .eq-median{position:absolute;top:-4px;bottom:-4px;width:2.5px;background:var(--red)}
   .eq-you{position:absolute;top:-4px;bottom:-4px;width:2.5px;background:var(--ink);left:5.6%;transition:left .15s linear}
   .eq-dial input[type=range]{width:100%;max-width:560px;accent-color:var(--red);display:block;height:28px}
-  .eq-dial-note{display:block;margin-top:10px;font-size:15px;color:var(--body-c);max-width:66ch;line-height:1.55}
+  .eq-dial-note{display:block;margin-top:10px;font-size:16.5px;color:var(--body-c);max-width:66ch;line-height:1.55}
   .eq-dial-note--short{display:none}
   .eq-live{display:none}
   @media (max-width:640px){
     .eq-bands{display:none}
     .eq-dial-note--full{display:none}
     .eq-dial-note--short{display:block}
-    .eq-live{display:flex;gap:8px 20px;flex-wrap:wrap;margin-top:10px;font-size:18px;color:var(--body-c)}
+    .eq-live{display:flex;gap:8px 20px;flex-wrap:wrap;margin-top:10px;font-size:19px;color:var(--ink)}
     .eq-live b{color:var(--red);font-family:'Oswald',sans-serif;font-weight:600}
     .equation{padding:18px 16px}
     .eq-row{padding:14px 0}
@@ -175,9 +175,10 @@
     .eq-cells i{width:10px;height:10px}
     .eq-tables{gap:8px}
     .eq-tables svg{width:28px;height:28px}
-    .eq-label{font-size:1.06rem}
+    .eq-label{font-size:1.15rem}
     .eq-row{grid-template-columns:1fr}
     .eq-input{gap:12px}
+    .eq-dial-note--short{font-size:16px}
   }
   @media (max-width:640px){.eq-row{grid-template-columns:1fr;gap:8px}.eq-sign{text-align:left}}
 
@@ -397,8 +398,8 @@
           <span class="eq-big">$1</span>
           <span class="eq-label">of energy waste removed</span>
         </div>
-        <span class="eq-sign">=</span>
         <div class="eq-result">
+          <span class="eq-sign">=</span>
           <div class="eq-cells" id="eqCells" aria-hidden="true"></div>
           <div class="eq-val">
             <span class="eq-big eq-red"><span id="eqSales">33</span></span>
@@ -411,8 +412,8 @@
           <span class="eq-big">$1,000</span>
           <span class="eq-label">of monthly waste removed</span>
         </div>
-        <span class="eq-sign">=</span>
         <div class="eq-result">
+          <span class="eq-sign">=</span>
           <div class="eq-tables" id="eqTables" aria-hidden="true"></div>
           <div class="eq-val">
             <span class="eq-big eq-red"><span id="eqTablesN">7</span></span>
