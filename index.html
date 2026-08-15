@@ -140,11 +140,48 @@
   footer p{font-size:14.5px;line-height:1.6;color:var(--mut);max-width:80ch}
   footer .fine + .fine{margin-top:10px}
 
+  /* the living ledger */
+  .ledger{position:relative;margin-top:26px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;height:24rem;overflow:hidden}
+  .ledger::before,.ledger::after{content:"";position:absolute;left:0;right:0;height:3rem;z-index:1;pointer-events:none}
+  .ledger::before{top:0;background:linear-gradient(var(--bg-alt),transparent)}
+  .ledger::after{bottom:0;background:linear-gradient(transparent,var(--bg-alt))}
+  .ledger__col{display:flex;flex-direction:column;gap:.6rem;animation:ledgerDrift var(--dur,220s) linear infinite}
+  .ledger:hover .ledger__col{animation-play-state:paused}
+  .ledger__card{background:#fff;border:1px solid var(--line);padding:.8rem .95rem}
+  .ledger__card .r{display:block;font-family:'Oswald',sans-serif;font-weight:600;font-size:1.15rem;color:var(--red)}
+  .ledger__card .n{display:block;margin-top:.2rem;font-weight:600;color:var(--ink);font-size:.92rem;line-height:1.35}
+  .ledger__card .w{display:block;margin-top:.15rem;font-size:.78rem;color:var(--mut);line-height:1.4}
+  @keyframes ledgerDrift{to{transform:translateY(-50%)}}
+  @media (max-width:820px){.ledger{grid-template-columns:1fr 1fr}.ledger__col:nth-child(3){display:none}}
+  @media (max-width:540px){.ledger{grid-template-columns:1fr;height:20rem}.ledger__col:nth-child(2){display:none}}
+  .quiet{font-size:15px;color:var(--mut);margin-top:14px}
+  .textlink{background:none;border:none;padding:0;font:inherit;color:var(--red);text-decoration:underline;cursor:pointer}
+
+  /* the full record dialog */
+  .sheet{border:none;padding:0;width:min(64rem,94vw);max-height:86vh;margin:auto;background:#fff;color:var(--body-c);overflow:auto}
+  .sheet::backdrop{background:rgba(31,34,38,.55)}
+  .sheet__bar{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.4rem;border-bottom:2px solid var(--ink);position:sticky;top:0;background:#fff;z-index:1}
+  .sheet__bar h2{font-size:1.15rem;margin:0}
+  .sheet__close{background:none;border:none;font-size:1.8rem;line-height:1;cursor:pointer;color:var(--mut)}
+  .sheet__body{padding:1.2rem 1.4rem}
+  .sheet__note{padding:0 1.4rem 1.2rem;font-size:.8rem;color:var(--mut)}
+  .rec-group{margin:0 0 2.2rem}
+  .rec-group h3{font-family:'Barlow Condensed';font-size:.85rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);padding-bottom:.5rem;border-bottom:2px solid var(--ink)}
+  .rec-group h3 span{float:right;color:var(--mut)}
+  .rec-group ul{list-style:none;margin:0;padding:0}
+  .rec-group li{display:grid;grid-template-columns:7.5rem 1fr minmax(0,16rem);gap:.3rem 1.2rem;padding:.65rem 0;border-bottom:1px solid var(--line);font-size:.92rem}
+  .rec-group .r{font-family:'Oswald',sans-serif;font-weight:600;color:var(--red)}
+  .rec-group .n b{display:block;font-weight:600;color:var(--ink)}
+  .rec-group .n span{color:var(--mut)}
+  .rec-group .b{color:var(--body-c)}
+  @media (max-width:640px){.rec-group li{grid-template-columns:5.5rem 1fr}.rec-group .b{grid-column:2}}
+
   /* motion */
   .js .rv{opacity:0;transform:translateY(16px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
   .js .rv.in{opacity:1;transform:none}
   @media (prefers-reduced-motion:reduce){
     .js .rv{opacity:1;transform:none;transition:none}
+    .ledger__col{animation:none}
   }
 </style>
 </head>
@@ -166,25 +203,31 @@
   <div class="wrap">
     <p class="addressee rv">Saltgrass Steak House · A Texas Energy Pilot · August 2026</p>
     <h1 class="rv">Your best nights are your <em>most expensive</em> nights.</h1>
-    <p class="lead rv">And not just because the kitchen is busy. A packed dining room loads every system in the building at once: the crowd, the doors, the steam, the cold storage. Most of that cost is controllable. This page shows where it hides and how we remove it.</p>
+    <p class="lead rv">A packed dining room loads every system in the building at once. Most of that cost is controllable. This page shows where it hides and how we remove it.</p>
+  </div>
+</div>
+
+<div class="statement">
+  <div class="wrap">
+    <h2 class="rv">You cannot control the price of cattle. You can control the price of <em>comfort</em>.</h2>
+    <p class="rv">Cut food quality and the guest tastes it. Cut labor and the guest feels it. Energy is one of the only line items in a steakhouse that can fall sharply without a single guest noticing, because the fix makes the dining room more comfortable, not less.</p>
   </div>
 </div>
 
 <section>
   <div class="wrap">
-    <div class="act-label rv"><span class="rule"></span><span>What we already know about your restaurants</span></div>
     <div class="prose">
       <h2 class="rv">A steakhouse is one of the hardest buildings in America to power.</h2>
-      <p class="rv">Full service restaurants use five to seven times more energy per square foot than a typical commercial building. Cooking gets the blame, but on the electric side the money is in cooling and refrigeration, running against each other all night.</p>
-      <p class="rv">On the Gulf Coast, the fight is worse. Every guest at every table adds heat and moisture to the room. Doors swing hundreds of times a night. The kitchen pumps steam. An air conditioning system older than five to seven years has quietly lost the ability to wring that moisture out of the air, so the walk-ins work harder, the dining room feels warmer than the thermostat says, and the equipment wears itself out fighting a battle it can no longer win.</p>
+      <p class="rv">Full service restaurants use five to seven times more energy per square foot than a typical commercial building. Cooking gets the blame, but waste is in cooling and refrigeration, running against each other all night.</p>
+      <p class="rv">On the Gulf Coast, the fight is worse. Every guest at every table adds heat and moisture to the room. The kitchen pumps steam. An air conditioning system older than five to seven years has quietly lost the ability to remove that moisture out of the air. Walk-ins work harder, the dining room feels warmer than the thermostat says, and equipment wears itself out years earlier than needed.</p>
     </div>
     <div class="stat-pull rv">
       <span class="big">5 to 7&times;</span>
       <span class="why">the energy intensity of a typical commercial building. A single electric fryer uses more electricity in a year than an average American home. Multiply by nearly one hundred steakhouses.</span>
     </div>
     <div class="prose">
-      <p class="rv">And in a restaurant, a saved dollar is worth far more than a dollar. The industry's own data puts median full service income before taxes at 2.8 percent of sales. At that margin, every dollar of energy waste we remove does the profit work of roughly 35 dollars of food sales. Remove a thousand dollars of monthly waste from one restaurant, and it earns what seating about seven more full tables every night earns, without adding a single cook, server, or pound of beef.</p>
-      <p class="rv">We heard it directly: the original Saltgrass on I-10 has been packed for decades and still runs freezers and HVAC that are roughly twenty years old. To most vendors that reads as a replacement quote. To us it reads as the single best place in the portfolio to prove what recovery is worth, because aging equipment is recoverable, not just replaceable.</p>
+      <p class="rv">Restaurant industry data puts median full service income before taxes at 2.8 percent of sales. At that margin, every dollar of energy waste we remove does the profit work of roughly 35 dollars of food sales.</p>
+      <p class="rv">Remove a thousand dollars of monthly waste from one restaurant, and it can earn what seating about seven more tables every night earns, without adding a single cook, server, or pound of beef.</p>
     </div>
   </div>
 </section>
@@ -291,12 +334,13 @@
     </div>
     <div class="proof-block rv">
       <h3>The precedent</h3>
-      <p class="prose">The technologies we deploy have produced independently verified results at companies you know. These are technology results at the companies named, and we present them as exactly that.</p>
-      <div class="results">
-        <div class="r"><span class="co">Simon Property Group</span><span class="pct">21.1% <small>HVAC energy, verified</small></span></div>
-        <div class="r"><span class="co">DHL</span><span class="pct">15% <small>reduction</small></span></div>
-        <div class="r"><span class="co">Anheuser-Busch</span><span class="pct">19.2% <small>reduction</small></span></div>
+      <p class="prose">The technologies we deploy have been measured at more than 200 named sites, under their own conditions. These are technology results at the sites named, and we present them as exactly that.</p>
+      <div class="ledger" id="ledger" aria-hidden="true">
+        <div class="ledger__col" style="--dur:210s"></div>
+        <div class="ledger__col" style="--dur:260s"></div>
+        <div class="ledger__col" style="--dur:180s"></div>
       </div>
+      <p class="quiet">The ledger above is a live sample. Hover to hold it still. <button type="button" class="textlink" id="record-open" aria-haspopup="dialog">Read the full record: 95 documented examples</button></p>
     </div>
     <div class="proof-block rv">
       <h3>The money</h3>
@@ -304,13 +348,6 @@
     </div>
   </div>
 </section>
-
-<div class="statement">
-  <div class="wrap">
-    <h2 class="rv">You cannot control the price of cattle. You can control the price of <em>comfort</em>.</h2>
-    <p class="rv">Cut food quality and the guest tastes it. Cut labor and the guest feels it. Energy is one of the only line items in a steakhouse that can fall sharply without a single guest noticing, because the fix makes the dining room more comfortable, not less.</p>
-  </div>
-</div>
 
 <section>
   <div class="wrap">
@@ -368,15 +405,152 @@
 
 <footer>
   <div class="wrap">
-    <p class="fine">Technology results shown are independently verified results for the technologies we deploy, achieved at the companies named. Savings figures are stated as a share of the HVAC and cooling portion of a facility bill, not the whole bill, and every projection is planned at the floor of the proven range. Utility incentives are quoted from current program manuals during site scoping. Grid forecast figures are from ERCOT's published long term load forecast. The margin equivalence is an illustration based on the National Restaurant Association's 2025 Restaurant Operations Data Abstract, which reports median full service income before taxes of 2.8 percent of sales, and assumes a typical casual steakhouse average check; it is not a projection for any specific restaurant. Federal tax provisions referenced are as of August 2026; confirm with tax counsel.</p>
+    <p class="fine">Technology results shown are results achieved by the technologies we deploy at the sites named or documented in the studies cited, under their own conditions; they are not predictions for any specific restaurant. Regional programs aggregate hundreds of additional sites into the 200 plus total. Savings figures are stated as a share of the HVAC and cooling portion of a facility bill, not the whole bill, and every projection is planned at the floor of the proven range. Utility incentives are quoted from current program manuals during site scoping. Grid forecast figures are from ERCOT's published long term load forecast. The margin equivalence is an illustration based on the National Restaurant Association's 2025 Restaurant Operations Data Abstract, which reports median full service income before taxes of 2.8 percent of sales, and assumes a typical casual steakhouse average check; it is not a projection for any specific restaurant. Federal tax provisions referenced are as of August 2026; confirm with tax counsel.</p>
     <p class="fine">Prepared by Redstone Energy in partnership with Energy Plus. Private and confidential, prepared for Landry's.</p>
   </div>
 </footer>
+
+<dialog class="sheet" id="record-sheet" aria-labelledby="record-title">
+  <div class="sheet__bar">
+    <h2 id="record-title">The full record</h2>
+    <button type="button" class="sheet__close" id="record-close" aria-label="Close the full record">&times;</button>
+  </div>
+  <div class="sheet__body" id="record-body">
+    <noscript><p>The full record requires JavaScript. Documentation for all 95 examples is available on request.</p></noscript>
+  </div>
+  <p class="sheet__note">Every result was measured at the named site under its own conditions; it is not a prediction for your restaurants. Regional programs aggregate hundreds of additional sites into the 200 plus total.</p>
+</dialog>
 
 <script>
   document.documentElement.classList.add('js');
   const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
   document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i%6,4)*60)+'ms';io.observe(el)});
+
+  const RECORD=[
+    { t:"Whole building examples", c:3, rows:[
+      ["49.2%","AZ Ford Dealership","Auto dealership · Arizona","Documented project total (power quality + HVAC + lighting)"],
+      ["27% avg","City of Rainsville","Municipal · Alabama","First-year monitored, power conditioning + LED"],
+      ["+50% / +2%","Commercial Bottling Plant","Manufacturing · Upper Midwest","Growth-adjusted net cost study (50% more output, 2% more cost)"]
+    ]},
+    { t:"HVAC examples", c:67, rows:[
+      ["33%","Durham College","Education / research · Oshawa, ON","16,851 data points; ANOVA / t-test"],
+      ["27.75% avg","City of Windsor","Municipal · Windsor, ON","Enwin Utilities verified; OPA approved"],
+      ["23.6%","NASA Jet Propulsion Lab","Government · Pasadena, CA","7-day before/after, Caltech / Emcor"],
+      ["21.1% kWh","Simon Property Group","Retail, Jersey Gardens mall · Elizabeth, NJ","IPMVP; $41,473/yr, 12-mo payback"],
+      ["19.2% RTU","Anheuser-Busch (Mitchell Distributing)","Distribution · United States","20-mo payback; 904% lifetime ROI"],
+      ["20–35%","Trebor International","Manufacturing · Windsor, ON","P.E. licensed in 6 jurisdictions"],
+      ["21–32%","Kenya program","Lab + field · Kenya Bureau of Standards; LECOL Mombasa","KEBS lab test vs BS EN 60335-1"],
+      ["27–30%","Lebanon program","2 sites · DALFA Beirut · HSZ Zgharta","Metered data, witnessed and co-signed"],
+      ["47.6% ΔT","Electrolux","Lab / OEM · United States","ECM thermal report"],
+      ["284% ROI","Men's Wearhouse (Tailored Brands)","Retail · United States","Dual-RTU, 12.5-mo payback"],
+      ["24%+ / yr","McDonald's franchisee","Quick-serve · United States","Annual study"],
+      ["20% avg","Bangladesh Ministry of Power","Government pilot · Dhaka","Official certification issued"],
+      ["20% avg","AT&T Mobility / SDG&E","Telecom, 9 cell sites · San Diego, CA","HOBO loggers; utility-engineer co-authored"],
+      ["19.5–21.6%","Verizon Network Services","Telecom · Dallas, TX","P.E.-authored; approved for deployment"],
+      ["~21%","DOE FEMP demonstration","Government, gymnasium RTUs · United States","U.S. DOE / ORNL controlled study"],
+      ["22%","Bashas' Supermarket","Grocery · Gold Canyon, AZ","Grocery vertical study"],
+      ["19.4% / yr","Domino's Store 6711","Quick-serve · United States","2-year study"],
+      ["12–27%","UAE program","14 institutions · Sheraton Jumeirah · Sharjah FZ · Jotun · Flora Grand","14-institution deployment"],
+      ["15–39%","Multi-country program","South Africa · Pakistan · Indonesia · Puerto Rico","Field studies per country"],
+      ["15–21%","Bangladesh enterprise","56 units · GraphicPeople (WPP) · BEXIMCO · IDLC Finance","Enterprise deployment"],
+      ["15% eff.","DHL (ammonia refrigeration)","Logistics · United States","Compressor study, 13.8-mo payback"],
+      ["200 sites","Airtel Bangladesh","Telecom, 200 BTS sites · Nationwide","3-month pilot, no performance issues"],
+      ["5-mo payback","Italgas Toscana","Utility, heat pump · Italy","Field efficiency trial"],
+      ["50%","General Electric","Voltas · 1.5 ton","India · optimization field test"],
+      ["45%","IIT, Mumbai","Voltas · 1.5 ton","India · optimization field test"],
+      ["44%","Merrill Lynch","Carrier · 2.0 ton","India · optimization field test"],
+      ["39%","GTL","Carrier · 1.5 ton","India · optimization field test"],
+      ["39%","Premier Energy Transmission","Commander · 1.5 ton","India · optimization field test"],
+      ["35%","Reliance Communication","Daikin · 2.0 ton","India · optimization field test"],
+      ["35%","EPIC Energy","LG · 1.5 ton","India · optimization field test"],
+      ["34%","CTV","National · 1.5 ton","India · optimization field test"],
+      ["33%","Airtel","Carrier · 8.5 ton","India · optimization field test"],
+      ["30%","The Association Building Company (TATA)","Voltas · 1.5 ton","India · optimization field test"],
+      ["29%","Reliance Energy","Videocon · 1.5 ton","India · optimization field test"],
+      ["28%","Larsen & Toubro","Voltas · 1.5 ton","India · optimization field test"],
+      ["28%","Agility Logistics","LG · 1.5 ton","India · optimization field test"],
+      ["27%","Indian School of Business","Hitachi · 1.5 ton","India · optimization field test"],
+      ["27%","ENAM Securities","Videocon · 1.5 ton","India · optimization field test"],
+      ["27%","India Independent Strategy and Research","Mitsubishi · 2.0 ton","India · optimization field test"],
+      ["26%","TATA Consultancy Services","Blue Star · 11 ton","India · optimization field test"],
+      ["26%","Hero Moto Corp","Carrier · 2.0 ton","India · optimization field test"],
+      ["26%","CCI Club, Mumbai","O General · 2.0 ton","India · optimization field test"],
+      ["25%","Daikin","Daikin · 2.0 ton","India · optimization field test"],
+      ["25%","Godrej","Godrej · 2.0 ton","India · optimization field test"],
+      ["25%","Infosys","Toshiba · 1.8 ton","India · optimization field test"],
+      ["25%","ICICI","Videocon · 1.5 ton","India · optimization field test"],
+      ["25%","ISPAT","LG · 1.5 ton","India · optimization field test"],
+      ["25%","Vinergy","Mitsubishi · 1.0 ton","India · optimization field test"],
+      ["25%","Raj Bhavan","LG · 2.0 ton","India · optimization field test"],
+      ["25%","Diners Business Service","LG · 1.5 ton","India · optimization field test"],
+      ["25%","Great Eastern Shipping Company","Daikin · 2.0 ton","India · optimization field test"],
+      ["24%","Blue Star","Blue Star · 2.0 ton","India · optimization field test"],
+      ["24%","TATA Tele","Voltas · 2.0 ton","India · optimization field test"],
+      ["23%","Reliance Web World","Carrier · 1.5 ton","India · optimization field test"],
+      ["23%","Tech Mahindra","LG · 1.5 ton","India · optimization field test"],
+      ["23%","Raymond Industries","LG · 1.5 ton","India · optimization field test"],
+      ["22%","Siemens","Panasonic · 1.5 ton","India · optimization field test"],
+      ["21%","TATA Motors","Voltas · 1.5 ton","India · optimization field test"],
+      ["21%","KPMG","Carrier · 17 ton","India · optimization field test"],
+      ["20%","Viom","SpaceMaker · 3.5 ton","India · optimization field test"],
+      ["20%","AT&T Mobility","LG · 2.0 ton","India · optimization field test"],
+      ["20%","Veritas","LG · 1.0 ton","India · optimization field test"],
+      ["20%","Vitz Hotel","Voltas · 3.0 ton","India · optimization field test"],
+      ["19%","Mahindra & Mahindra","Blue Star · 2.0 ton","India · optimization field test"],
+      ["19%","MTNL","Voltas · 2.0 ton","India · optimization field test"],
+      ["19%","Naval Dockyard","Videocon · 1.5 ton","India · optimization field test"],
+      ["18%","TATA Power","Carrier · 8.5 ton","India · optimization field test"]
+    ]},
+    { t:"Power conditioning examples (a later-phase upgrade)", c:25, rows:[
+      ["24.0%","Edward Hospital","Hospital · Naperville, IL","Power factor + voltage conditioning + line reactors; metered, beat projection, $84,270 / 9 mo"],
+      ["20% avg","Starnes Quarter Horses","Agriculture · Alabama","Monthly bill comparison"],
+      ["16% kWh","Team Wow (Domino's)","Quick-serve · El Paso, TX","Weather-adjusted, U.S. DOE standards"],
+      ["15.0% kWh","Buffalo Rock","Manufacturing · Birmingham, AL","Noesis, 12-month study"],
+      ["15% kWh","Henkel","Manufacturing · Richmond, VA","Exceeded corporate sustainability goal"],
+      ["15% kWh","Cowabunga (Domino's)","Quick-serve · Georgia","Third-party metering, 7-store install"],
+      ["14.8% kWh","Corey Center","Office + warehouse · Atlanta, GA","Noesis, 4-year average"],
+      ["14% kWh","Caribe Resort","Hospitality · Orange Beach, AL","Facilities-director measured"],
+      ["up to 14%","Serra Mazda","Retail / auto · Trussville, AL","CHI Energy, 12-month study"],
+      ["13.5% kWh","Hilton Garden Inn","Hospitality · Marietta, GA","ABRAXAS, 12-month study"],
+      ["13.0% kWh","Planet Fitness","Fitness · Birmingham, AL","CHI Energy"],
+      ["12.9% kWh","Hi-Noon (Sinclair)","C-store / fuel · Missoula, MT","Verified by NorthWestern Energy"],
+      ["12.5% kWh","RPM Pizza (Domino's)","Quick-serve, 170+ stores · MS · LA · AL · IN · MI","Normalized; >$100k/yr projected"],
+      ["12.5% kWh","Wheeling University","Education · Wheeling, WV","Engineering capstone study"],
+      ["12% kWh","Pinnacle Center 4 (J&J HQ)","Office · Rogers, AR","Occupancy-adjusted baseline"],
+      ["9–19%","The Massey Building","Office (historic) · Birmingham, AL","Per-floor metering"],
+      ["9% kWh","Popeyes","Quick-serve, 25 locations · GA · AL · LA · MS · TN","ABRAXAS"],
+      ["9.7% delta","Krystal","Quick-serve · Georgia","Noesis, vs. control store"],
+      ["8.59% kW","Las Vegas Hotel & Casino","Hospitality · Las Vegas, NV","Independent panel metering"],
+      ["~1 yr payback","Pacific Steel","Manufacturing · Montana","PE-sealed technoeconomic analysis"],
+      ["18% panel","Haven Health","Medical · United States","Industria Energy independent study"],
+      ["40% motor","Sequoyah Elementary","Education · Tennessee","Data-logged 14 days, 9.5-mo ROI"],
+      ["15.4% amps","Arnie's Gas & Tire","C-store / fuel · Ronan, MT","Verified by electrical engineer"],
+      ["~$1,500 / store","C-Store program (TeamSledd / Liberty)","C-store / fuel, 12 stores · OH · WV · PA","3-year year-over-year study"],
+      ["THD −30 / −45%","Off-grid solar residence","Power-quality test · South Carolina","PowerSight 5000 metering"]
+    ]}
+  ];
+  (function(){
+    const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    const ledger=document.getElementById('ledger');
+    if(ledger){
+      const flat=[];RECORD.forEach(g=>g.rows.forEach(r=>flat.push(r)));
+      const cols=Array.from(ledger.querySelectorAll('.ledger__col'));
+      const card=r=>'<div class="ledger__card"><span class="r">'+esc(r[0])+'</span><span class="n">'+esc(r[1])+'</span><span class="w">'+esc(r[2])+'</span></div>';
+      cols.forEach((col,i)=>{const rows=flat.filter((_,j)=>j%cols.length===i);const html=rows.map(card).join('');col.innerHTML=html+html;});
+      ledger.addEventListener('click',()=>{const b=document.getElementById('record-open');if(b)b.click();});
+    }
+    const sheet=document.getElementById('record-sheet'),openBtn=document.getElementById('record-open'),closeBtn=document.getElementById('record-close');
+    if(sheet&&openBtn){
+      let rendered=false;
+      const render=()=>{
+        if(rendered)return;rendered=true;
+        document.getElementById('record-body').innerHTML=RECORD.map(g=>'<section class="rec-group"><h3>'+esc(g.t)+'<span>'+g.c+'</span></h3><ul>'+g.rows.map(r=>'<li><span class="r">'+esc(r[0])+'</span><span class="n"><b>'+esc(r[1])+'</b><span>'+esc(r[2])+'</span></span><span class="b">'+esc(r[3])+'</span></li>').join('')+'</ul></section>').join('');
+      };
+      openBtn.addEventListener('click',()=>{render();sheet.showModal();});
+      if(closeBtn)closeBtn.addEventListener('click',()=>sheet.close());
+      sheet.addEventListener('click',e=>{if(e.target===sheet)sheet.close();});
+    }
+  })();
 </script>
 </body>
 </html>
